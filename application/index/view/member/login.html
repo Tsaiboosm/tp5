@@ -1,0 +1,197 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录</title>
+
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/layui.css">
+	</head>
+	<style>
+		.error-msg{
+			color: #C10000;
+		}
+		.txt{
+			width: 280px;
+			margin: 10px auto 0;
+			text-align: right;
+		}
+		.txt a {
+			margin-left: 20px;
+			cursor: pointer;
+		}
+	</style>
+	<body style="width: 100%;height: 100%; background: url(__STATIC__/index2.1.0/img/temp/19.jpg) no-repeat; ">
+
+		<form id="loginForm" action="{:url('member/login')}" method="post" onSubmit="return false;">
+		   <div style="position: absolute; left:50%;top:50%;width: 500px;margin-left: 0px;margin-top: -200px;">
+			   <div style="background: #ffffff;padding: 20px;border-radius: 4px;box-shadow: 5px 5px 20px #444444;">
+				   <div class="layui-form">
+					   <div class="layui-form-item" style="color:gray;">
+						   <h2>登录</h2>
+					   </div>
+					   <hr>
+					   
+					   <div class="layui-form-item">
+						<label class="layui-form-label">用户名</label>
+						<div class="layui-input-block">
+						   <span class="error-msg"></span>
+							   <input type="text" id="mobile_phone"class="layui-input" name="mobile_phone" placeholder="手机"> 
+						   </div>
+					   </div>
+					   <div class="layui-form-item">
+						   <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+						   <div class="layui-input-block">
+							   <input type="password"  id="password" name="password"class="layui-input" placeholder="密码"> <span class="error-msg"></span>
+						   </div>
+					   </div>
+					   <div class="layui-form-item">
+						   <label class="layui-form-label">验证码</label>
+						   <div class="layui-input-block">
+						   <div class="layui-input-inline">
+							   <input type="text" maxlength="4"  id="captcha" name="captcha"class="layui-input" placeholder="验证码"><span class="error-msg"></span>
+						   </div>
+						   <img src="{:captcha_src()}"id="captchaImg" onClick="this.src='{:captcha_src()}'" class="captcha" style="margin-left: -10px;	">
+					   </div>
+					   <div class="layui-form-item">
+						   <div class="layui-input-block">
+							<button type="submit" style="    width: 280px;background: #C10000;font-size: 20px;border: none;color: #fff;height: 40px;border-radius:4px;
+							" >登&nbsp;&nbsp;录</button>
+							  <p class="txt"><a class="" href="{:url('member/register')}">免费注册</a><a href="forget.html">忘记密码？</a></p>
+						   </div>
+					   </div>
+				   </div>
+			   </div>
+		   </div>
+	   </form>
+   </head>
+<body>
+	
+                  
+
+
+
+	<!-- js的顺序不能乱 -->
+	<script src="__STATIC__/lib/jquery/jquery.min.js"></script>
+    <!-- 表单验证插件 -->
+    <script src="__STATIC__/lib/jquery/jquery.validation.min.js"></script>
+    <!-- bootstrap.min.js依赖jquery -->
+    <script src="__STATIC__/lib/bootstrap4/js/bootstrap.min.js"></script>
+	
+	<!-- 为了避免浏览器缓存静态资源文件，就不把自定义的js放到单独的js文件了，
+    	直接写在<script>标签中 -->
+   	<script type="text/javascript">
+   	$(function() {
+   		// 登录表单验证
+   		$("#loginForm").validate({
+   			// 表单验证成功通过后的回调
+   			submitHandler: function(form) {
+   				//console.log(form);
+   				form.submit();
+   			},
+   			// 错误提示
+   			errorPlacement: function(error, element) { // 错误信息，input表单项
+   				// 设置输入框的错误样式
+   				element.addClass('is-invalid');
+   				// 找到输入框的含有form-group样式的祖先元素div。parents()找祖先元素，parent()找直接父亲元素
+   				var parentDiv = element.parents('div.layui-input-block')
+   				// 找到装信息提示的span
+   				var errorMsgSpan = parentDiv.find('span.error-msg');
+   				// 设置错误信息提示
+   				errorMsgSpan.html(error); 
+   			},
+   			// 成功时，移除
+   			success: function(element) { // 注意这里回调过来的并不是输入框，而是label 
+   				//console.log(element);
+   				// 找到输入框的含有form-group样式的祖先元素div。parents()找祖先元素，parent()找直接父亲元素
+   				var parentDiv = element.parents('div.form-group')
+   				// 找到装信息提示的span
+   				var errorMsgSpan = parentDiv.find('span.error-msg');
+   				// 找到输入框
+   				var input = parentDiv.find('input');
+   				// 移除错误信息提示
+   				errorMsgSpan.html(''); 
+   				// 重置输入框样式
+   				input.removeClass('is-invalid');
+   				input.addClass('is-valid');
+   			},
+   			ignore: ".ignore",
+   			// 表单验证规则
+   			rules: {
+   				mobile_phone: { 
+   					required: true,
+   					isMobile: true,
+   					remote: {
+   						cache: false,
+   						async: true,
+   						type: 'POST',
+   						url: "{:url('member/isPhoneExist')}",
+   						data: { // 请求所需的参数列表
+   							mobile_phone: function() {
+   								return $('#mobile_phone').val();
+   							}
+   						},
+   						// 由于remote需要的返回值是布尔值（false表示不通过），而实际返回值是一个封装对象
+   						// 所以需要dataFilter对返回的封装对象进行预处理，并给remote返回所需的布尔值
+   						dataFilter: function(jsonStr, type) {
+   							// true：不存在
+   							if (jsonStr === 'true') {
+   								return false;
+   							}
+   							return true;
+   						}
+   					}
+   				},
+   				password: {
+   					required: true,
+   					rangelength: [3, 32]  // 字符长度
+   				},
+   				captcha: {
+   					required: true,
+   					remote: {
+   						cache: false,
+   						async: true,
+   						type: 'POST',
+   						url: "{:url('member/checkCaptcha')}",
+   						data: { // 提交给服务端的数据（键值对）
+   							captcha: function() {
+   								return $('#captcha').val();
+   							}
+   						},
+   						dataFilter: function(jsonStr, type) {
+   							// jsonStr是'true'表示验证码正确
+   							if (jsonStr === 'false') {
+   								$('#captchaImg').click(); // 模拟点击，更新验证码图片
+   								$('#captcha').val(''); // 清空验证码输入框
+   							}
+   							return jsonStr === 'true'; 
+   						}
+   					}
+   				}
+   			},
+   			messages: { // 与验证规则一一对应的消息提示
+   				mobile_phone: {
+   					required: '请输入手机号',
+   					isMobile: '请输入正确的手机号',
+   					remote: '该手机号尚未注册'
+   				},
+   				password: {
+   					required: '密码不能为空',
+   					rangelength: '密码长度在3到32个字符' 
+   				},
+   				captcha: {
+   					required: '验证码不能为空',
+   					remote: '验证码错误，已刷新'
+   				}
+   			},
+   			onkeyup: function(element, event) {
+   				var name = $(element).attr("name");
+   				if (name == "captcha") {
+   					//不可去除，当是验证码输入必须失去焦点才可以验证（错误刷新验证码）
+   					return false;
+   				}
+   			}
+   		});
+   	});
+   	</script>
+	
+</body>
+</html>

@@ -1,0 +1,367 @@
+
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>购物</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/proList.css" />
+	</head>
+	<body>
+		<!--------------------------------------cart--------------------->
+		{include file="hond/index2"}
+		<div class="cart mt">
+			<!-----------------logo------------------->
+			<!--<div class="logo">
+				<h1 class="wrapper clearfix">
+					<a href="index.html"><img class="fl" src="__STATIC__/index2.1.0/img/temp/logo.png"></a>
+					<img class="top" src="__STATIC__/index2.1.0/img/temp/cartTop01.png">
+				</h1>
+			</div>-->
+			<!-----------------site------------------->
+			<div class="site">
+				<p class=" wrapper clearfix">
+					<span class="fl">购物车</span>
+					<img class="top" src="__STATIC__/index2.1.0/img/temp/cartTop01.png">
+					<a href="" class="fr">继续购物&gt;</a>
+				</p>
+			</div>
+			<!-----------------table------------------->
+			<div class="table wrapper">
+				<div class="tr">
+					<div>商品</div>
+					<div>单价</div>
+					<div>数量</div>
+					<div>小计</div>
+					<div>操作</div>
+				</div>
+					<form id="cartForm" method="post" action="{:url('order/ordersd')}">
+				{foreach $itemList as $item}
+				<div class="th">
+					<div class="pro clearfix">
+						<label class="fl">
+							<input type="checkbox" value="{$item.cartId}"onChange="checkOne(this)" id="checkItem_{$item.cartId}" name="checkItem[]">
+							<span ><label for="checkItem_{$item.cartId}"></label></span>
+						</label>
+						
+						<a class="fl" href="#">
+							<dl class="clearfix">
+								<dt class="fl"><img src="/{$item.mainPic}"style="	width: 100px;height: 100px;"></dt>
+								<dd class="fl">
+									<p>{$item.goodsName}</p>
+									<p>颜色分类:</p>
+									<p>白色瓷瓶+白色串枚</p>
+								</dd>
+							</dl>
+						</a>
+					</div>
+					
+					<div class="price"><span name="price">￥{$item.salePrice} </span></div>
+
+					
+					
+
+					<div class="number">
+						<p class="num clearfix">
+							<a class="btn-reduce" href="javascript:void(0)" onclick="addNum(this, -1, {$item.last});
+							requestUpdateCount({$item.cartId}, $(this).siblings('input[name=goodsNum]').val(), this)">
+						<strong><img class="fl sub" src="__STATIC__/index2.1.0/img/temp/sub.jpg"></strong>
+					</a>
+					<input class="fl" value="{$item.count}" name="goodsNum" ectype="number" defaultnumber="1"/ style="width: 20px;">
+							<a class="btn-add" href="javascript:void(0)" onClick="addNum(this, 1, {$item.last});
+								requestUpdateCount({$item.cartId}, $(this).siblings('input[name=goodsNum]').val(), this)">
+							<strong><img class="fl add" src="__STATIC__/index2.1.0/img/temp/add.jpg"></strong>
+						</span>
+						</a>
+						</p>
+					</div>
+					<div class="price sAll">￥{$item.count * $item.salePrice}</div>
+					<div class="price"><a  href="javascript:void(0)"
+						onClick="requestDeleteOne({$item.cartId}, this)"
+						ectype="cartOperation">删除</a>---<a href="javascript:void(0)" ectype="cartOperation">收藏</a></div>
+					 
+				</div>
+				{/foreach}
+				
+				<div class="goOn">空空如也~<a href="index.html">去逛逛</a></div>
+			</form>
+				<div class="tr clearfix">
+					<label class="fl">
+						
+						<input class="checkAll" type="checkbox" onChange="checkAll()"/>
+						<span>
+					</label>
+					<p class="fl">
+						<label for="cart-selectall">全选</label>
+						<a href="javascript:void(0)" onClick="requestDeleteMore()">删除</a>
+					</p>
+					<p class="fr">
+						<span>共<small id="cartItemCount">{$itemCount}</small>件商品</span>
+						<span>合计:&nbsp;<small id="all">￥0.00</small></span>
+						<input type="button" name="goPay" style="margin-left: 40px; width: 150px;text-align: center;color: #fff;background: #8e8e8e;height: 40px;" value="提交订单" id="goPay" onClick="document:cartForm.submit()"/>
+					
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="mask"></div>
+		<div class="tipDel">
+			<p>确定要删除该商品吗？</p>
+			<p class="clearfix">
+				<a class="fl cer" href="#">确定</a>
+				<a class="fr cancel" href="#">取消</a>
+			</p>
+		</div>
+		{include file="hond/foot"}
+		<!----------------mask------------------->
+	
+		<script src="__STATIC__/index2.1.0/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/cart.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/layui/layui.js"></script>
+	</body>
+	<script type="text/javascript">
+		layui.use(['layer'],function(){
+				$ = layui.jquery;
+				layer = layui.layer;
+
+			});
+	
+			$(function() {
+		// 加载页面后全部勾选
+		checkAll();
+
+		// 监听数量的输入框，绑定输入框的keyup和afterpaste事件
+		$("input[name='goodsNum']").on("keyup afterpaste", function() {
+			// 如果输入框输入非数字的字符，立马将该字符替换为空
+			var corrected = $(this).val().replace(/[^\d]/g,'');
+			if (corrected == '' || corrected == 0) {
+				corrected = 1;
+			}
+
+			$(this).val(corrected);
+
+			/*
+            // 服务端更新后，页面才更新
+            // 更新小计和总价
+            $goodsItem = $(this).parents(".item-single");
+            // 单价
+            var price = parseFloat($goodsItem.find("span[name='price']").text());
+            // 数量
+            var num = parseInt($(this).val());
+            $goodsItem.find("span[name='subtotal']").html( (price*num).toFixed(2) );
+
+            // 如果当前商品勾选了。那么应该也更新总价
+            if ($goodsItem.find("input[name='checkItem']").prop("checked")) {
+                calTotalCost();
+            }
+            */
+		});
+	});
+
+	function checkAll() {
+		//console.log(allChk);
+		// jquery-1.4.2 没有prop()方法
+		// 注意测试，发现1.9.1无法使用attr()操作checked属性
+
+		// “全选”这个复选框的状态
+		var isSelectedAll = $("#cart-selectall").prop("checked");
+		$items = $("input[name='checkItem[]']");
+		// 全部复选框选中
+		$items.prop("checked", isSelectedAll);
+		// 更改 已勾选复选框的数量
+		$("#selectedCount").html(isSelectedAll ? $items.length : 0);
+		// 重新计算总价
+		calTotalCost();
+	}
+
+	function checkOne(cur) {
+		// 标志变量：是否已经全部选中
+		var isAllSelected = true;
+		// 当改变当前复选框的状态时，判断是否所有复选框状已经全部选中
+		// 如果是，改变“全选”这个复选框的状态
+		$("input[name='checkItem[]']").each(function() {
+			if (!$(this).prop("checked")) {
+				isAllSelected = false;
+			}
+		});
+		$("#cart-selectall").prop("checked", isAllSelected);
+		$("#selectedCount").html($("input[name='checkItem[]']:checked").length);
+		// 重新计算总价
+		calTotalCost();
+	}
+
+	// 计算勾选商品的总价 (引入cart.js的计算然后数据提取时渲染，不用浮点数计算)
+	// function calTotalCost() {
+	// 	var total = 0;
+	// 	$("span[name='price']").each(function(index, element) {
+	// 		// 判断是否勾选
+	// 		if ($("input[name='checkItem[]']").eq(index).prop("checked")) {
+	// 			var price = parseFloat($(this).text()); // 单价，浮点数
+	// 			// 注意不要用[]来取数组的某个元素，那样取出来是html代码，而并非jquery对象
+	// 			var num = parseInt($("input[name='goodsNum']").eq(index).val()); // 数量，整数
+	// 			total += (price * num);
+	// 		}
+	// 	});
+	// 	//console.log(total);
+	// 	$("#totalCost").html(total.toFixed(2));
+	// }
+
+	// 加减商品数量
+	function addNum(obj, step, max) { // obj：当前对象  step：要加减的值	max：最大值
+		//console.log(num);
+
+		$goodsNum = $(obj).siblings("input[name='goodsNum']");
+		var cur = parseInt($goodsNum.val()); // 当前的数量
+		//console.log(cur);
+		var corrected = 0;
+		if (step > 0) {
+			corrected = cur+step > max ? max : (cur+step);
+		} else {
+			corrected = cur+step < 1 ? 1 : (cur+step);
+		}
+		$goodsNum.val(corrected);
+
+	}
+
+	// 更新小计和总价
+	// 服务端更新后，页面才更新
+	function updateData(obj) { // obj 是“更新”的按钮
+		$goodsItem = $(obj).parents(".item-single");
+		// 单价
+		var price = parseFloat($goodsItem.find("span[name='price']").text());
+		// 数量
+		var num = parseInt($goodsItem.find("input[name='goodsNum']").val());
+		$goodsItem.find("span[name='subtotal']").html( (price*num).toFixed(2) );
+
+		// 如果当前商品勾选了。那么应该也更新总价
+		if ($goodsItem.find("input[name='checkItem[]']").prop("checked")) {
+			calTotalCost(); // 更新总价
+		}
+	}
+
+		function requestUpdateCount(cartId, newCount, obj) {
+			//console.log(newCount);
+			$.ajax({
+				type: "post",
+				url: "{:url('cart/updateNum')}",
+				data: {
+					cartId: cartId,
+					count : newCount
+				},
+				success: function(res) {
+					//console.log(res);
+					if (res.status) {
+						layer.alert('修改数量成功', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						});
+					
+						//alert('修改数量成功');
+					
+						
+						// 重新计算小计和总价
+						updateData(obj);
+					} else {
+						//alert('修改数量失败：' + res.msg);
+						layer.alert('修改数量失败', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						
+						});
+						// setTimeout('window.location.reload()',2000);刷新页面
+					}
+				}
+			});
+		}
+	
+		function requestDeleteOne(cartId, obj) {
+			layer.confirm( "是否将该商品从购物车中移除？",{
+				btn: ['确定','取消']
+	          }, function(result){
+	
+			//console.log('This was logged in the callback: ' + result);
+					// 确认的时候，result为true
+					if (result) {
+						$.ajax({
+							type: "post",
+							url: "{:url('cart/deleteOne')}",
+							data: {
+								cartId: cartId
+							},
+							success: function(res) {
+								console.log(res);
+								if (res.status) {
+									layer.alert('删除成功', {
+									title: '提示',
+									icon: 1,
+									closeBtn: 1,
+									time: 3000 //5秒关闭（如果不配置，默认是3秒）
+									});
+								
+									$(obj).parents(".th").remove();
+								
+								} else {
+									layer.alert('删除失败',+ res.msg, {
+									title: '提示',
+									icon: 1,
+									closeBtn: 1,
+									time: 3000 //5秒关闭（如果不配置，默认是3秒）
+									});
+								}
+							}
+						});
+					}
+				});
+	}
+	function requestDeleteMore() {
+		layer.confirm( "是否将该商品从购物车中移除？",{
+				btn: ['确定','取消']
+	          }, function(result){
+		    	if (result) {
+					$.ajax({
+						type: "post",
+						url: "{:url('cart/deleteMore')}",
+						data: {
+							cartIds: cartIds
+						},
+						success: function(res) {
+							console.log(res);
+							if (res.status) {
+								console.log(res);
+								if (res.status) {
+									layer.alert('删除成功', {
+									title: '提示',
+									icon: 1,
+									closeBtn: 1,
+									time: 3000 //5秒关闭（如果不配置，默认是3秒）
+									});
+									$(obj).parents(".th").remove();
+							} else {
+								layer.alert('删除失败',+ res.msg, {
+									title: '提示',
+									icon: 1,
+									closeBtn: 1,
+									time: 3000 //5秒关闭（如果不配置，默认是3秒）
+									});
+								}
+							}
+						}
+						});
+					}
+				});
+	}
+
+	</script>
+</html>

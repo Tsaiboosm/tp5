@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>最家</title>
+		<link rel="stylesheet" type="text/css" href="__LIB__/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__LIB__/mygxin.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css">
+		<script src="__STATIC__/layui/extend/city-picker/city-picker.data.js"></script>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/layui/extend/city-picker/city-picker.css">
+	</head>
+	<body>
+		<!------------------------------head------------------------------>
+		{include file="hond/inmygxin"}
+	
+	
+				<div class="you fl">
+					<h2>收货地址</h2>
+					<div class="add"style="height: 600px;    display: flex;  justify-content: space-around;flex-wrap: wrap;">
+						<div>
+							<a href="#2" id="edit"><img src="__STATIC__/index2.1.0/img/jia.png"/></a>
+							<span>添加新地址</span>
+						</div>
+						
+                	<input type="hidden" name="addressId" />
+                        {$allAddress}
+					
+							
+				</div>
+			</div>
+		</div>
+		<!--编辑弹框-->
+		<!--遮罩-->
+		<div class="mask"></div>
+		<div class="adddz editAddre">
+			<form class="layui-form form-container" action="" method="post" name="addressForm" id="addressForm">
+				<input type="text" required lay-verify="required"  placeholder="姓名" id="consigneeName"class="on" />
+				<input type="text" required lay-verify="required"  placeholder="手机号"id="mobilePhone" />
+				<div class="layui-form-item layui-col-md8">
+					
+			<input type="text" autocomplete="on" class="layui-input" id="province"name="city-picker" readonly="readonly" data-toggle="city-picker" placeholder="请选择地址"style="width:300px">
+					
+				</div>
+				<textarea name="" rows="" cols="" id="detail" placeholder="详细地址"></textarea>
+				<input type="text" id="city" placeholder="邮政编码" />
+				<input type="text" id="area" placeholder="留言" />
+				<div class="bc">
+					<input type="button" href="javascript:void(0)" onClick="saveAddress()"   data-dismiss="modal" value="保存" />
+					<input type="button" value="取消" />
+				</div>
+			</form>
+		</div>
+		{include file="hond/foot"}
+		<script src="__STATIC__/index2.1.0/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/pro.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/layui/layui.js"></script>
+	</body>
+	<script type="text/javascript">
+	layui.use(['layer'],function(){
+				$ = layui.jquery;
+				layer = layui.layer;
+
+			});
+		layui.extend({
+			citypicker:'__STATIC__/layui/extend/city-picker/city-picker'
+		}).use(['citypicker'],function(){
+			var $ = layui.$,
+			citypicker = layui.citypicker;
+
+			var cityPicker = new citypicker("#province",{
+				// provincename:"provinceId",
+				// cityname:"cityId",
+				// districtname: "districtId",
+				// level: 'districtId',// 级别
+			})
+		});
+		$(function(){
+            
+            $("#Payment span").click(function() {
+            // 删除其他兄弟元素的样式
+			$(this).siblings('span').removeClass('selected');  		// 删除其他兄弟元素的样式
+                $(this).addClass('selected');  // 添加当前元素的样式
+                $("input[name='payment']").val($(this).find("input[type=hidden]").val());
+            });
+        
+         //   $("#Receiver li:first").attr("class","selected list-group-item");
+        });
+		function saveAddress() {
+			//var isOk1 = $("#addressForm").valid(); // 校验
+			//var isOk2 = checkRegionSelect(); // 校验 
+			
+			//if (isOk1 && isOk2) {
+				$.ajax({
+					url: "{:url('order/addAddress')}",
+					type: "post",
+					data: {
+						consigneeName: $("#consigneeName").val(),
+						mobilePhone: $("#mobilePhone").val(),
+						telephone: $("#telephone").val(),
+						province: $("#province").val(),
+						city: $("#city").val(),
+						area: $("#area").val(),
+						detail: $("#detail").val()
+					},
+					success: function(res) {
+						if (res.status) {
+						layer.alert('添加成功', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						});
+						
+						} else {
+						layer.alert('添加失败'+res.msg, {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						
+						});
+						}
+					}
+				});
+			//}
+		}
+		function deleteAddress(addressId, obj) { 
+			
+			layer.confirm( "是否将该地址移除？",{
+				btn: ['确定','取消']
+	          },
+			  function(result){
+		    	if (result) {
+				$.ajax({
+					url: "{:url('mygxin/deleteAddress')}",
+					type: "post",
+					data: {
+						addressId: addressId
+					},
+					success: function(res) {
+						if (res.status) {
+							layer.alert('删除成功', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						});
+						} else {
+							layer.alert('删除失败'+res.msg, {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						
+						});
+							
+						}
+					}
+				});
+				}
+			});
+		}
+			// 校验省、市、区是否完整
+			function checkRegionSelect() {
+			$selects = $("#regionSelect>select").not(":disabled");
+			//console.log($selects);
+			var isOk = true;
+			$selects.each(function() {
+				//console.log($(this).val());
+				if ($(this).val() == 0) {
+					isOk = false;
+				}
+			});			
+			$("#regionSelect").next().html(isOk ? '' : '地区信息不完整');
+			return isOk; 
+		}
+
+		// 设置AddressForm的validate
+		function validateAddressForm() {
+			//console.log($("form[name='addressForm']"));
+			
+			$("#addressForm").validate({
+				ignore:".ignore",
+				rules: {
+					consigneeName:{
+						required : true,
+						maxlength: 16
+					}, 
+					mobilePhone: {
+						required : true,
+						isMobile : true
+					},
+					detail: {
+						required : true,
+						maxlength: 32
+					}
+				},
+				messages: {
+					consigneeName:{
+						required : '收货人姓名不能为空',
+						maxlength: '收货人姓名不能超过16个字符'
+					}, 
+					mobilePhone: {
+						required : '手机号不能为空',
+						isMobile : '手机号码格式错误'
+					},
+					detail: {
+						required : '详细地址不能为空',
+						maxlength: '详细地址不能超过32个字符'
+					}
+				}
+			});	
+		}
+	</script>
+	<script>
+			
+//	address
+$("#edit").click(function(){
+				$(".mask").show();
+				$(".adddz").show();
+			});
+	$(".bc>input").click(function(){
+		if($(this).val()==""){
+		
+		}else{
+			$(".mask").hide();
+			$(".adddz").hide();
+		
+		}
+	});
+	</script>
+</html>

@@ -1,0 +1,173 @@
+.detail{
+    background-color: #ffffff;
+}
+.product-wrap .name{
+    font-size:1rem;
+    color:#555;
+    font-weight:700;
+    margin-bottom:10px;
+}
+.product-wrap .price-box{
+    position: center;
+    background:url(../img/summary-bg.jpg) #f3f3f3;
+    padding: 8px 0;
+}
+.imgGlass {
+    width: 100%;
+}
+/*商城价和市场价的样式*/
+.wordsmall1{
+    font-size: x-small;
+    padding-left:20px;
+    margin-right:10px;
+    line-height:24px;
+    color:#8c8c8c;
+}
+.wordsmall2{
+    float:left;
+    font-size: x-small;
+    padding-left:20px;
+    margin-right:10px;
+    line-height:24px;
+    color:#8c8c8c;
+}
+.wordsmall3{
+    float:left;
+    font-size: x-small;
+    padding-left:20px;
+    margin-right:10px;
+    line-height:24px;
+    color:#555555;
+}
+.shop-price{
+    font-size:30px;
+    height:24px;
+    line-height:24px;
+    float:left;
+    margin-left:4px;
+    margin-top: 10px;
+}
+.preview{
+    float:left;
+    width:100%;
+    height:auto;
+}
+.gallery_wrap{
+    width:100%;
+    border:1px solid #d2d2d2;
+    text-align:center;
+}
+.gallery_wrap a {
+    width:100%;
+    display:table-cell;
+    vertical-align:middle;
+}
+.gallery_wrap a img{
+    max-width:100%;
+}
+.price-notify{
+    width:70px;
+    height:20px;
+    line-height:20px;
+    background:url(../img/dsc-icon.png) -296px -44px no-repeat;
+    display:inline-block;
+    padding-left:8px;
+    color:#fff;
+    cursor:pointer;
+    margin-top: 1rem;
+    margin-left: 0.2rem;
+}
+.price-reduction-notice{
+    font-size: 0.25rem;
+}
+.si-cumulative{
+    padding-right:10px;
+    margin-right:10px;
+    font-size:12px;
+    line-height:14px;
+    border-right:1px
+    solid #d2d2d2;
+}
+.si-warp .m-price{
+    line-height:24px;
+    text-decoration: line-through;
+}
+.service-item-1{
+    font-size: x-small;
+    margin-top: 18px;
+    margin-left: 1rem;
+}
+.fl .link-red{
+    color: #f42424;
+}
+
+.summary-item .si-warp .tary{ display:block; float:left; margin-right:10px;}
+/*数量加减*/
+.amount-warp{ margin-left: 1rem; margin-right: 2rem}
+.amount-warp .buy-num{ border:1px solid #d2d2d2; width:28px; height:28px; float:left; outline:0; text-align:center;margin-top: 15px}
+.amount-warp .a-btn{ float:left; width:22px; height:28px; border:1px solid #d2d2d2; border-left:0;margin-top: 15px}
+.amount-warp .a-btn a{ float:left; width:22px; height:14px; line-height:14px; text-align:center;}
+.amount-warp .a-btn .btn-reduce{ height:13px; border-top:1px solid #d2d2d2;}
+.amount-warp a .iconfont{ font-size:12px;}
+.amount-warp .a-btn .btn-disabled{ color:#e0e0e0;}
+.btn-size{
+    width: 150px;
+    height: 50px;
+    margin-top: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+.btn-size2{
+    width: 225px;
+    height: 50px;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+.mylabel{
+    font-size: 0.5rem;
+}
+.collection-img{
+    margin-top: -3px;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 1rem;
+}
+.small-title{
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: #5a6268;
+}
+.small-information{
+    font-size: 0.75rem;
+}
+.btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
+.show > .btn-warning.dropdown-toggle {
+    color: #ffffff;
+    background-color: #d39e00;
+    border-color: #c69500;
+}
+.btn-warning.disabled, .btn-warning:disabled {
+    color: #ffffff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.btn-warning {
+    color: #ffffff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    color: #ffffff;
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-warning:focus, .btn-warning.focus {
+    color: #ffffff;
+    background-color: #e0a800;
+    border-color: #d39e00;
+    box-shadow: 0 0 0 0.2rem rgba(222, 170, 12, 0.5);
+}

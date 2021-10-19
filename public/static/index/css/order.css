@@ -1,0 +1,101 @@
+/* common */
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-style: revert;
+}
+ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+ul > li {
+    padding: 0 12px;
+    float: left;
+}
+a {
+    color: #8c8c8c;
+    text-decoration: none !important;
+}
+a:hover {
+    color: #f42424 !important;
+}
+.card-body {
+    padding: 12px;
+}
+
+
+/* 右上角的列表 */
+.bd-list > li {
+    border-right: 1px solid #dcdcdc;
+    float: right;
+}
+
+/* top-bar */
+.top-bar {
+    background-color: #eee;
+}
+.top-bar ul li {
+    margin: 8px 0;
+}
+
+/*画一条横线*/
+.link-top {
+    border-top: 2px solid #f42424;
+}
+/*画一条横线*/
+.link-body {
+    border-top: 1px solid  #495057;
+    margin-bottom: 24px;
+}
+/*左上字体*/
+.my_p{
+    font-size: 20px;
+    color: #5a6268;
+}
+
+/* 商品box */
+.p-price {
+    color: #aa0707;
+    font-weight: bold;
+
+}
+
+/*新增收货地址样式*/
+.new_address{
+    font-size: 8px;
+    color: #8c8c8c;
+}
+.new_address:hover{
+
+    color: #aa0707;
+}
+/*返回购物车*/
+.return_cart{
+    font-size: 8px;
+    color: #8c8c8c;
+}
+.return_cart:hover{
+    font-size: 8px;
+    color: #aa0707;
+}
+/*文本位于div底部*/
+.my_divtext{
+    position: relative;
+}
+.my_spantext{
+    position: absolute;
+    bottom: 15%;
+    right: 0;
+}
+/*备注提示*/
+.my_spantis{
+    font-size: 12px;
+    color: #8c8c8c;
+
+
+}
+ul.list-group > li.list-group-item {
+	cursor: pointer;
+}
+

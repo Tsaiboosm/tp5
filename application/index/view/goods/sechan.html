@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>搜索</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/proList.css"/>
+        <link rel="icon" href="__STATIC__/index2.1.0/img/R-C.jfif" type="image/x-icon" />
+	</head>
+    <style>
+        #min{
+            outline: none;
+    height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    width: 50px;
+        }
+        #max{
+            outline: none;
+    height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    width: 50px;
+        }
+    </style>
+	<body>
+		<!------------------------------head------------------------------>
+		<div class="head ding">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="__STATIC__/index2.1.0/img/logo.png"/></a></h1>
+					<div class="fr clearfix" id="top1">
+						<p class="fl">
+							<a href="#" id="login">登录</a>
+							<a href="#" id="reg">注册</a>
+						</p>
+						<form action="#" method="get" class="fl">
+							<input type="text"id="keyword" placeholder="搜索"  {notempty name="$conds.goodsName" placeholder="搜索商品名"}value="{$conds.goodsName}" {/notempty}>
+							<input onClick="searchByGoodsName($('#keyword').val())" type="button" />
+                           
+						</form>
+						<div class="btn fl clearfix">
+							<a href="mygxin.html"><img src="__STATIC__/index2.1.0/img/grzx.png"/></a>
+							<a href="#" class="er1"><img src="__STATIC__/index2.1.0/img/ewm.png"/></a>
+							<a href="cart.html"><img src="__STATIC__/index2.1.0/img/gwc.png"/></a>
+							<p><a href="#"><img src="__STATIC__/index2.1.0/img/smewm.png"/></a></p>
+						</div>
+					</div>
+				</div>
+				<ul class="clearfix" id="bott">
+					<li><a href="{:url('index/index')}">首页</a></li>
+					<li>
+						<a href="#">所有商品</a>
+						<div class="sList">
+						
+						</div>
+					</li>
+					<li>
+						<a href="flowerDer.html">装饰摆件</a>
+						
+					</li>
+					<li>
+						<a href="decoration.html">布艺软饰</a>
+						
+					</li>
+					<li><a href="paint.html">墙式壁挂</a></li>
+					<li><a href="perfume.html">蜡艺香薰</a></li>
+					<li><a href="idea.html">创意家居</a></li>
+				</ul>
+			</div>
+		</div>
+		<!------------------------------搜索列表------------------------------>
+		<div class="schBox">
+			<ul class="wrapper sch">
+              
+				<li>
+					<h4>分类：</h4>
+					<a  href="#" onClick="setNrice(花艺)">花艺</a>
+					<a href="#">干花包</a>
+					<a href="#">花瓣</a>
+					<a href="#">树叶</a>
+				</li>
+                
+				<li>
+                  
+					<h4>摆放空间：</h4>
+                    {foreach $cates as $cate}
+					<a href="#"> <input name="cate[]" id="cate-{$cate.id}" value="{$cate.id}"  onClick="addCategory(this)"
+                        {in name="cate.id" value="$conds.cates"}checked="checked"{/in}  
+                         type="checkbox" >
+                    <label for="cate-{$cate.id}">{$cate.cateName}</label></a>
+					
+                    {/foreach}
+				</li>
+               
+               
+          
+				<li>
+					<h4>价格：</h4>
+					        <a  href="#" onClick="setPrice(0, 99)">0 - 99</a>
+                            <a href="#" onClick="setPrice(100, 499)">100 - 499</a>
+                            <a href="#" onClick="setPrice(500, 999)">500 - 999</a>
+                            <a href="#" onClick="setPrice(1000, 4999)">1000 - 4999</a>
+                            <a href="#" onClick="setPrice(5000, 9999)">5000 - 9999</a>
+                            <div class="jiage">
+                                <input type="text" id="min" value="{$conds.minPrice}" title="最低价"
+                                    placeholder="￥最低价" class="form-control form-control-sm"
+                                    onkeyup="value=value.replace(/[^\d]/g,'')" 
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                                <span class="text-muted mx-2">-</span>
+                                <input type="text" id="max" value="{$conds.maxPrice}" title="最高价" 
+                                    placeholder="￥最高价" class="form-control form-control-sm"
+                                    onkeyup="value=value.replace(/[^\d]/g,'')" 
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                                    <button type="button" onClick="setPrice($('#min').val(), $('#max').val())"
+                                    style="  color: #fff; background-color: #007bff;  border: 1px solid transparent; padding: 0.25rem 0.5rem;font-size: 0.875rem; line-height: 1.5;border-radius: 0.2rem; ">确认</button>
+                            </div>
+                            <!-- 设置点击事件 -->
+                           
+                        </div>
+				</li>
+               
+			</ul>
+            
+		</div>
+		<!-----------------address------------------------------->
+	
+		<!-------------------current---------------------->
+		<div class="current">
+			<div class="wrapper clearfix">
+				<a href="{:url('goods/sechan')}"><h3 class="fl">显示所有商品：“点击”</h3> </a>
+				<div class="fr choice">
+               
+					<p class="default">商品筛选</p>
+                     {assign name="field" value="$conds.sort[0]" /}
+                {assign name="isDesc" value="$conds.sort[1] == 'desc' ? true : false" /}
+					<ul class="select">
+						<li href="javascript:void(0);" onClick="setSort('onSaleTime', {$isDesc})"> <a>
+                            <span>最新上市新品</span>
+                            {eq name="field" value="onSaleTime"}<i {eq name="isDesc" value="true"}down{else/}up{/eq}"></i>{/eq}</a>
+                        </a></li>
+						<li href="javascript:void(0);" onClick="setSort('salePrice', {$isDesc})"> <a >
+                            <span>价格从低到高</span>
+                            {eq name="field" value="salePrice"}<i class="iconfont ml-1 icon-arrow-{eq name="isDesc" value="true"}down{else/}up{/eq}"></i>{/eq}
+                        </a></li>
+						<li href="javascript:void(0);" onClick="setSort('saleCount', {$isDesc})" > <a>
+                            <span>最佳销量商品</span>
+                            {eq name="field" value="saleCount"}<i class="iconfont icon-arrow-{eq name="isDesc" value="true"}down{else/}up{/eq}"></i>{/eq}</a>
+                        </a></li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+        <form method="post" action="{:url('goods/sechan')}" name="listform" id="listForm">
+        	<!-- 已勾选的分类的checkbox -->
+			{foreach $conds.cates as $cateId}
+				<input type="hidden" name="cate[]" value="{$cateId}" />
+			{/foreach}
+			
+			<input type="hidden" name="goodsName" value="{$conds.goodsName}" id="goodsName" /> 
+			<input type="hidden" name="minPrice" value="{$conds.minPrice}" id="minPrice" /> 
+			<input type="hidden" name="maxPrice" value="{$conds.maxPrice}" id="maxPrice" /> 
+			<!-- 拼接排序方式的value值 -->
+			<input type="hidden" name="sort" value="{$field . ' ' . $conds.sort[1]}" id="sort"/>
+		</form>
+		<!----------------proList------------------------->
+		<!-- <div class="goOn">空空如也~<a href="index.html">去逛逛</a></div> -->
+		<ul class="proList wrapper clearfix">
+            {foreach $goodsList as $goods}
+			<li>
+               
+				<a href="{:url('index/proDer')}?id={$goods.id}">
+					<dl>
+						<dt><img src="/{$goods.mainPic}"></dt>
+						<dd>商品：{$goods.goodsName}</dd>
+                        <dd>上架：{$goods.onSaleTime}</dd>
+						<dd>￥{$goods.salePrice}</dd>
+					</dl>
+				</a>
+               
+			</li>
+            {/foreach}
+		</ul>
+		<!----------------mask------------------->
+		<div class="mask"></div>
+		<!-------------------mask内容------------------->
+       
+		
+		{include file="hond/foot"}
+		<script src="__STATIC__/index2.1.0/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/pro.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/cart.js" type="text/javascript" charset="utf-8"></script>
+        <script src="__STATIC__/layui/layui.js"></script>
+	</body>
+
+    <script type="text/javascript">
+		layui.use(['layer'],function(){
+				$ = layui.jquery;
+				layer = layui.layer;
+
+			});
+		// 根据商品名称关键词搜索
+		function searchByGoodsName(goodsName) {
+			console.log(goodsName);
+			$('#goodsName').val(goodsName);
+			$("#listForm").submit();
+		}
+        function checkPriceRange(min, max) {
+			/*
+			var regex = /(^[1-9]\d*$)|0/;
+			
+			if ((min != ' ') && !(regex.test(min)) && (max != '') && !(regex.test(max))) {
+				alert('价格必须为整数');
+				return false;
+			}  else 
+				*/
+			if (parseInt(min) > parseInt(max)) {
+                layer.alert('最低价格不能高于最高价格', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						time: 3000 //5秒关闭（如果不配置，默认是3秒）
+						});
+				return false;
+			} 
+			return true;
+		}
+        // 添加分类
+		function addCategory(cateInput) { // 绝对不能写成this
+			// 往隐藏表单中添加一个分类条目
+			if ($(cateInput).is(':checked')) {
+				$("#listForm").append("<input type=hidden name=cate[] value= "+ $(cateInput).val() + " />");
+			} else {
+				//console.log('删除');
+				$("#listForm").children("input[value=" + $(cateInput).val() + "]").remove();
+			}
+			// 提交表单
+			$("#listForm").submit();
+		}
+        // 设置价格
+		function setPrice(min, max) { // 传递min和max（字符串）
+			if (checkPriceRange(min, max)) {
+				$("#minPrice").val(min);
+				$("#maxPrice").val(max);
+				// 提交表单
+				$("#listForm").submit();
+			}
+		}
+        function setNrice(goodsName) {
+			$('#goodsName').val(goodsName);
+			$("#listForm").submit();
+		}
+        	// 设置某个字段的排序方式
+		function setSort(field, isDesc) { // field 需要跟数据库字段名一致（否则，要在服务端转换）
+			// 取反
+			var type = isDesc ? 'asc' : 'desc';
+			$('#sort').val(field + ' ' + type);
+			// 提交表单
+			$("#listForm").submit();
+		}
+	</script>
+		<script type="text/javascript">
+		$(document).ready(function(e) {
+			var counter = 0;
+			if (window.history && window.history.pushState) {
+				$(window).on('popstate', function () {
+					window.history.pushState('forward', null, '#');
+					window.history.forward(1);
+				});
+			}
+			window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+			window.history.forward(1);
+		});
+	</script>
+</html>

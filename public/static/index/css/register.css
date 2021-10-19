@@ -1,0 +1,68 @@
+
+/* 搜索框 */
+.search {
+    border-color: #007bff;
+    border-width: 2px;
+}
+
+/* 跳转去登录 */
+.to-login {
+    height: 38px;
+    text-align: center;
+    line-height: 35px;
+}
+
+/* 导航栏 */
+nav {
+    border-bottom: 2px solid #f42424;
+}
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.navbar-brand {
+    /*height: 100%;*/
+    font-size: 22px;
+    text-align: center;
+    color: #f42424 !important;
+    border-radius: 8px 8px 0 0;
+    /*border: 2px solid #f42424;*/
+    border-bottom: none;
+    padding: 14px 32px;
+}
+
+/* 左侧的背景图 */
+.left-bg {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+/* 注册表单 */
+.title {
+    text-align: center;
+    margin-bottom: 16px;
+}
+.register-btn {
+    width: 100%;
+    /* 设置line-height比设置height更好 */
+    line-height: 24px;
+    /* height: 24px; */
+    font-size: 17px;
+    margin: 8px 0;
+}
+.error-msg {
+    /* 不设置block，margin不起作用 */
+    display: block;
+    float: right;
+    color: #a94442;
+    font-weight: bold;
+}
+/* 验证码图片 */
+.captcha {
+    height: 38px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+	border: 1px solid #ced4da;
+}

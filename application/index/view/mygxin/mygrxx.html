@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>个人信息</title>
+		<link rel="stylesheet" type="text/css" href="__LIB__/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__LIB__/mygrxx.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css" />
+	</head>
+	<body>
+		<!------------------------------head------------------------------>
+		{include file="hond/inmygxin"}
+				<div class="you fl">
+					<h2>个人信息</h2>
+					<div class="gxin">
+						<div class="tx"><a href="#"><img src="{$Think.session.member.gender}" style="width: 100px;  border-radius: inherit;"/></div>
+						<div class="xx">
+							<h3 class="clearfix"><strong class="fl">基础资料</strong><a href="#" class="fr" id="edit1">编辑</a></h3>
+							<div>姓名：{$Think.session.member.memberName}</div>
+							<div>手机号：{$Think.session.member.phone|substr_replace=###,'****',3,4}</div>
+                            <div>邮箱：{$Think.session.member.email|substr_replace=###,'****',3,4}</div>
+							<h3>高级设置</h3>
+							<!--<div><span class="fl">银行卡</span><a href="#" class="fr">管理</a></div>-->
+							<div><span class="fl">账号地区：中国</span></div>
+						</div>
+					</div>			
+				</div>
+			</div>
+		</div>
+		<!--遮罩-->
+		<div class="mask"></div>
+		<!--编辑弹框-->
+		<div class="bj">
+			<div class="clearfix"><a href="#" class="fr gb"><img src="__STATIC__/index2.1.0/img/icon4.png"/></a></div>
+			<h3>编辑基础资料</h3>
+			<form class="layui-form form-container" action="{:url('mygxin/save')}" method="post">
+			
+				<p><label>邮箱号</label>
+					<input type="email" name="email"  required  lay-verify="required"  placeholder="请输入注册邮箱" /></p>
+				<p><label>姓名：</label>
+					<input type="text" required  lay-verify="required"name="memberName"  value="{$Think.session.member.memberName}" /></p>
+					
+					
+							<button class="layui-btn layui-btn-sm" id="upload_img" onclick="return false;">上传头像</button>
+							<img id="preview_img" style="height: 50px;" />
+							<input type="hidden"required  lay-verify="required" name="gender" />
+						
+				
+			
+				<div class="bc">
+					<button class="layui-btn" onclick="save()">保存</button>
+				</div>
+			</form>
+		</div>
+	
+		
+		{include file="hond/foot"}
+		<script src="__CAIjs__/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__CAIjs__/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__CAIjs__/user.js" type="text/javascript" charset="utf-8"></script>
+		<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+	</body>
+	<script type="text/javascript">
+		layui.use(['layer','upload'],function(){
+			layer = layui.layer;
+			upload = layui.upload;
+			$ = layui.jquery;
+	
+			var uploadInst = upload.render({
+				elem: '#upload_img' //绑定元素
+				,url: "{:url('Mygxin/upload_img')}" //上传接口
+				,done: function(res){
+				  $('#preview_img').attr('src',res.msg);
+				  $('input[name="gender"]').val(res.msg);
+				}
+				,error: function(){
+				  //请求异常回调
+				}
+			});
+		});
+	</script>
+</html>

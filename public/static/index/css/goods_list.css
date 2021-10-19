@@ -1,0 +1,109 @@
+/* common */
+.card-body {
+    padding: 12px;
+}
+
+/* 右上角的列表 */
+.bd-list > li {
+    border-right: 1px solid #dcdcdc;
+    float: right;
+}
+
+/* top-bar */
+.top-bar {
+    background-color: #eee;
+}
+.top-bar ul li {
+    margin: 8px 0;
+}
+
+/* 搜索框 */
+.search {
+    border-color: #007bff;
+    border-width: 2px;
+}
+/* 我的购物车 */
+.shop-cart {
+    width: 178px;
+    height: 38px;
+    border: 1px solid #d2d2d2;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 35px;
+}
+.shop-cart span {
+    margin-left: 8px;
+}
+.shop-cart .icon-carts {
+    font-size: 20px;  /* 购物车的图标放大一点 */
+}
+
+/* 条件框 */
+.condition-title {
+    font-weight: bold;
+    margin-right: 32px;
+}
+.condition-box > ul > li > div {
+    float: left;
+}
+.condition-box .custom-control {
+    margin-right: 20px;
+}
+.condition-box .custom-control input,
+.condition-box .custom-control label,
+.price-box > ul > li {
+    cursor: pointer;
+}
+.price-box > ul > li:hover {
+    color: #f42424;
+}
+.price-box input {
+    width: 62px !important;
+}
+
+/* 排序方式 */
+.sort-box .list-group-item {
+    padding: 8px 24px;
+}
+
+/* 商品box */
+.p-price {
+    color: #f42424;
+    font-size: 20px;
+    float: left;
+}
+.sale-count {
+    color: #8c8c8c;
+    font-size: 14px;
+    float: right;
+}
+.goods-num span {
+    display: block;
+    line-height: 30px;
+}
+.goods-num {
+    margin-bottom: 8px;
+}
+h6.card-title {
+    line-height: unset;
+}
+.btn-outline-warning:hover {
+    color: #fff !important;
+}
+
+/* 商品列表 */
+.goods-list .card:hover {
+    box-shadow: 0 0 10px #ddd;
+}
+.goods-list .card {
+    overflow: hidden;
+}
+.goods-list .card img {
+    transition:transform 0.5s;
+}
+.goods-list .card img:hover {
+    transform: scale(1.1);
+}
+
+
+

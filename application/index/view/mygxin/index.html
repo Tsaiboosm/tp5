@@ -1,0 +1,57 @@
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>个人信息</title>
+		
+	</head>
+	<body>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/mygxin.css" />
+		<!------------------------------idea------------------------------>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/mygxin.css" />
+		{include file="hond/inmygxin"}
+				<div class="you fl">
+					<div class="tx clearfix">
+						<div class="fl clearfix">
+							<a href="#" class="fl"><img src="{$Think.session.member.gender}"style="width: 100px; border-radius: inherit;"/></a>
+							<p class="fl"><span>{$Think.session.member.memberName}</span></p>
+						</div>
+						<div class="fr">登录时间：{$Think.session.member.email|substr_replace=###,'****',3,4}</div>
+					</div>
+					<div class="bott">
+						<div class="clearfix">
+							<a href="#" class="fl"><img src="__STATIC__/index2.1.0/img/gxin1.jpg"/></a>
+							<p class="fl"><span>待支付的订单：<strong>{$cartItemCount}</strong></span>
+								<a href="{:url('cart/indexca')}">查看待支付订单></a>
+							</p>
+						</div>
+						<div class="clearfix">
+							<a href="#" class="fl"><img src="__STATIC__/index2.1.0/img/gxin2.jpg"/></a>
+							<p class="fl"><span>未收货订单：<strong>{$cartItem}</strong></span>
+								<a href="{:url('order/myorderq')}">查看订单></a>
+							</p>
+						</div>
+						<div class="clearfix">
+							<a href="#" class="fl"><img src="__STATIC__/index2.1.0/img/gxin3.jpg"/></a>
+							<p class="fl"><span>待评价的订单：<strong>{$cartItemplun}</strong></span>
+								<a href="{:url('order/myorderq')}">查看待评价订单></a>
+							</p>
+						</div>
+						<div class="clearfix">
+							<a href="#" class="fl"><img src="__STATIC__/index2.1.0/img/gxin4.jpg"/></a>
+							<p class="fl"><span>喜欢的商品：<strong>0</strong></span>
+								<a href="#">查看喜欢的商品></a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+        {include file="hond/foot"}
+	
+				
+	</body>
+</html>

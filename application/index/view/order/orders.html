@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>order</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/proList.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/mygxin.css" />
+
+		<link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css">
+		<script src="__STATIC__/layui/extend/city-picker/city-picker.data.js"></script>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/layui/extend/city-picker/city-picker.css">
+	</head>
+	<style type="text/css">
+        /*选中收货人或支付方式改变样式*/
+        .selected{font-weight:bold; background:url('__STATIC__/index/img/checked.png') no-repeat; background-position: right  bottom}
+		
+    </style>
+	<body>
+		<!----------------------------------------order------------------>
+		{include file="hond/index2"}
+		<div class="order cart mt">
+			<!-----------------site------------------->
+			<div class="site">
+				<p class="wrapper clearfix">
+					<span class="fl">订单确认</span>
+					<img class="top" src="__STATIC__/index2.1.0/img/temp/cartTop02.png">
+				</p>
+			</div>
+			<!-----------------orderCon------------------->
+			<form action="{:url('order/submit')}" method="post" name="doneTheForm"  id="theForm">
+			<div class="orderCon wrapper clearfix">
+				<div class="orderL fl">
+					<!--------h3---------------->
+					<h3>收件信息<a href="#" class="edit" style="float:right;">新增地址</a></h3>
+					<!--------addres---------------->
+					<div class="addres clearfix">
+						<input type="hidden" name="addressId" />
+							
+						{$allAddress}
+						
+					
+					</div>
+					<h3>支付方式</h3>
+					<!--------way---------------->
+					<div class="dis clearfix" id="Payment">
+						<li id="firstpay">
+						<input type="hidden" isCod="0" name="payment" 	 />
+						<span><input type="hidden" isCod="1" name="payment1"value="0" /><img class="on" src="__STATIC__/index2.1.0/img/temp/way01.jpg"> </span>
+						<span> <input type="hidden" isCod="0" name="payment1"value="1" /><img src="__STATIC__/index2.1.0/img/temp/way02.jpg"> </span>
+						<span> <input type="hidden" isCod="0" name="payment1"value="2" /><img src="__STATIC__/index2.1.0/img/temp/way03.jpg">  </span>
+						<span> <input type="hidden" isCod="0" name="payment1"value="3" /><img src="__STATIC__/index2.1.0/img/temp/way04.jpg">  </span>
+					</li>
+					
+						
+					</div>
+					<h3>选择快递</h3>
+					<!--------dis---------------->
+					<div class="dis clearfix" id="Payme">
+						<li id="firstpay">
+						<input type="hidden" isCod="0" name="payme" 	 />
+						<span><input type="hidden" isCod="1" name="Payme1"value="0" />顺风快递</span>
+						<span><input type="hidden" isCod="0" name="Payme1"value="1" />百世汇通</span>
+						<span><input type="hidden" isCod="0" name="Payme1"value="2" />圆通快递</span>
+						<span><input type="hidden" isCod="0" name="Payme1"value="3" />中通快递</span>
+					</div>
+				</div>
+				<div class="orderR fr">
+					<div class="msg">
+						<h3>订单内容<a href="cart.html" class="fr">返回购物车</a></h3>
+                        {assign name="sum" value="2" /}
+                        {foreach $items as $item}
+                        {assign name="sum" value="$sum + $item.salePrice * $item.count - $item.count" /}
+						<!--------ul---------------->
+						<input name="cartIds[]" type="hidden" value="{$item.cartId}"> 
+						<ul class="clearfix">
+					
+							<li class="fl">
+								<img src="/{$item.mainPic}" style="  width: 87px; height: 87px;">
+							</li>
+							<li class="fl">
+								<p>{$item.goodsName}</p>
+								<p>颜色分类：烟灰色玻璃瓶</p>
+								<p>数量：{$item.count}</p>
+								<p>已优惠：{$item.marketPrice * $item.count}</p>
+							</li>
+							<li class="fr">￥{$item.salePrice * $item.count}</li>
+						</ul>
+						{/foreach}
+					</div>
+					<!--------tips---------------->
+					<div class="tips">
+						<p><span class="fl">商品金额：</span><span class="fr">￥{$sum}</span></p>
+					
+						<p><span class="fl">商品品类：</span><span class="fr">{$itemCount}</span></p>
+						<p><span class="fl">运费：</span><span class="fr">免运费</span></p>
+					</div>
+					<!--------tips count---------------->
+					<div class="count tips">
+						<p><span class="fl">合计：</span><span class="fr">￥{$sum}</span></p>
+					</div>
+			
+					<button class="pay" type="submit" >提交订单</button>
+					
+					
+				</div>
+				</form>
+			</div>
+		</div>
+		<!--编辑弹框-->
+		<!--遮罩-->
+		
+		<div class="mask"></div>
+		<div class="adddz editAddre">
+			<form action="" method="post" name="addressForm" id="addressForm">
+				<input type="text" placeholder="姓名" id="consigneeName"class="on" />
+				<input type="text" placeholder="手机号"id="mobilePhone" />
+				<div class="layui-form-item layui-col-md8">
+					
+			<input type="text" autocomplete="on" class="layui-input" id="province"name="city-picker" readonly="readonly" data-toggle="city-picker" placeholder="请选择地址"style="width:300px">
+					
+				</div>
+				<textarea name="" rows="" cols="" id="detail" placeholder="详细地址"></textarea>
+				<input type="text" id="city" placeholder="邮政编码" />
+				<input type="text" id="area" placeholder="留言" />
+				<div class="bc">
+					<input type="button" href="javascript:void(0)" onClick="saveAddress()"   data-dismiss="modal" value="保存" />
+					<input type="button" value="取消" />
+				</div>
+			</form>
+		</div>
+		{include file="hond/foot"}
+		<script src="__STATIC__/index2.1.0/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/pro.js" type="text/javascript" charset="utf-8"></script>
+	
+	
+		<script src="__STATIC__/layui/layui.js"></script>
+		<script>
+			$(function(){
+		
+		// 弹出地址关闭地址
+			$(".edit").click(function(){
+				$(".mask").show();
+				$(".adddz").show();
+			});
+			$(".bc>input").click(function(){
+		if($(this).val()==""){
+		
+		}else{
+			$(".mask").hide();
+			$(".adddz").hide();
+		
+		}
+	});
+			})
+				</script>
+		<script type="text/javascript">
+			layui.extend({
+				citypicker:'__STATIC__/layui/extend/city-picker/city-picker'
+			}).use(['citypicker'],function(){
+				var $ = layui.$,
+				citypicker = layui.citypicker;
+	
+				var cityPicker = new citypicker("#province",{
+					// provincename:"provinceId",
+					// cityname:"cityId",
+					// districtname: "districtId",
+					// level: 'districtId',// 级别
+				})
+			});
+		</script>
+	</body>
+	<script>
+			layui.use(['layer'],function(){
+				$ = layui.jquery;
+				layer = layui.layer;
+
+			});
+
+			
+			$(function(){
+            
+            $("#Payment span").click(function() {
+            // 删除其他兄弟元素的样式
+			$(this).siblings('span').removeClass('selected');  		// 删除其他兄弟元素的样式
+                $(this).addClass('selected');  // 添加当前元素的样式
+                $("input[name='payment']").val($(this).find("input[type=hidden]").val());
+            });
+            $("#Payme span").click(function() {
+            // 删除其他兄弟元素的样式
+			$(this).siblings('span').removeClass('selected');  		// 删除其他兄弟元素的样式
+                $(this).addClass('selected');  // 添加当前元素的样式
+                $("input[name='payme']").val($(this).find("input[type=hidden]").val());
+            });
+         //   $("#Receiver li:first").attr("class","selected list-group-item");
+        });
+		
+			function selectAddress(obj, addressId) {
+			   $(obj).siblings('li').removeClass('selected');  		// 删除其他兄弟元素的样式
+               $(obj).addClass('selected');     // 添加当前元素的样式
+			/* $(obj).addClass("cs-selected");
+			$(obj).siblings(".cs-w-item").removeClass("cs-selected"); */
+			$("input[name='addressId']").val(addressId);
+			//var v=addressId; //获取值  
+			// alert(v) ;
+			var sendAddr = "寄送至：" + $(obj).find(".item-address").text().replace(/\s+/g, "");
+			$("#sendAddr").html(sendAddr);
+			//alert(sendAddr) ;
+			var sendMobile = "收货人：" + $(obj).find(".username").text() + " " +
+						$(obj).find(".contact").eq(0).text();
+			//alert(sendMobile) ;
+			$("#sendMobile").html(sendMobile);
+		}
+			function saveAddress() {
+			//var isOk1 = $("#addressForm").valid(); // 校验
+			//var isOk2 = checkRegionSelect(); // 校验 
+			
+			//if (isOk1 && isOk2) {
+				$.ajax({
+					url: "{:url('order/addAddress')}",
+					type: "post",
+					data: {
+						consigneeName: $("#consigneeName").val(),
+						mobilePhone: $("#mobilePhone").val(),
+						telephone: $("#telephone").val(),
+						province: $("#province").val(),
+						city: $("#city").val(),
+						area: $("#area").val(),
+						detail: $("#detail").val()
+					},
+					success: function(res) {
+						if (res.status) {
+						layer.alert('添加成功', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						});
+						
+						} else {
+						layer.alert('添加失败'+res.msg, {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						
+						});
+						}
+					}
+				});
+			//}
+		}
+	
+		
+		
+		// 删除
+		function deleteAddress(addressId, obj) { 
+			layer.confirm( "是否将该地址移除？",{
+				btn: ['确定','取消']
+	          },
+			  function(result){
+		    	if (result) {
+				$.ajax({
+					url: "{:url('order/deleteAddress')}",
+					type: "post",
+					data: {
+						addressId: addressId
+					},
+					success: function(res) {
+						if (res.status) {
+							layer.alert('删除成功', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						});
+						} else {
+							layer.alert('删除失败'+res.msg, {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						yes: function(index, layero){
+						parent.location.reload(); // 父页面刷新
+						var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+						parent.layer.close(index); 
+					    }
+						
+						});
+							
+						}
+					}
+				});
+				}
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>个人信息</title>
+		<link rel="stylesheet" type="text/css" href="__LIB__/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__LIB__/mygrxx.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css" />
+	
+	</head>
+	<body>
+		<!------------------------------head------------------------------>
+        
+		{include file="hond/inmygxin"}
+		<!------------------------------Bott------------------------------>
+				<div class="you fl">
+					<h2>修改密码</h2>
+					<form class="layui-form form-container" action="{:url('mygxin/passwordedit')}" method="post">
+						<div class="layui-form-item">
+                            <label class="layui-form-label">邮箱号</label>
+                            <div class="layui-input-block">
+                                <input type="email" name="email" required  lay-verify="required" placeholder="请输入注册邮箱" class="layui-input" style="width:250px;">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">原密码</label>
+                            <div class="layui-input-block">
+                                <input type="password" name="password_origin" required  lay-verify="required" placeholder="请输入原密码" class="layui-input" style="width:250px;">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">密码</label>
+                            <div class="layui-input-block">
+                                <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" class="layui-input" style="width:250px;">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">再次输入</label>
+                            <div class="layui-input-block">
+                                <input type="password" name="password_again" required lay-verify="required" placeholder="请再次输入密码" class="layui-input" style="width:250px;">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+						
+                            <label class="layui-form-label">输入验证码</label>
+                            <div class="layui-input-block">
+                                <input type="name" name="verifyCode" required lay-verify="required" placeholder="输入验证码"  style="width:100px; height: 38px;	border: 1px solid #E0E0E0;">
+								
+								<img src="{:captcha_src()}" id="img" onclick="reloadImg()">
+								
+                            </div>
+						
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="*">保存</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    
+				</div>
+			</div>
+		</div>
+		
+		{include file="hond/foot"}
+		<script src="__CAIjs__/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__CAIjs__/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__CAIjs__/user.js" type="text/javascript" charset="utf-8"></script>
+		<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+	<script src="__STATIC__/layui/layui.js"></script>
+
+	<script>
+		function reloadImg(){
+			$('#img').attr('src','{:captcha_src()}?rand='+Math.random());
+		}	
+	</script>
+<script type="text/javascript">
+    $(document).ready(function(e) {
+        var counter = 0;
+        if (window.history && window.history.pushState) {
+            $(window).on('popstate', function () {
+                window.history.pushState('forward', null, '#');
+                window.history.forward(1);
+               
+            });
+        }
+        window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+        window.history.forward(1);
+    });
+</script>
+<script>
+	
+</script>
+</html>

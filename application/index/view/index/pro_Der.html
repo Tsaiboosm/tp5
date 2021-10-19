@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>详情页</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/index2.1.0/css/proList.css"/>
+		
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+		<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+
+	</head>
+	<body>
+		<!------------------------------head------------------------------>
+		<div class="head">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="__STATIC__/index2.1.0/img/logo.png"/></a></h1>
+					<div class="fr clearfix" id="top1">
+						<p class="fl">
+							<a href="#" id="login">登录</a>
+							<a href="#" id="reg">注册</a>
+						</p>
+						<form id="searchForm"method="get" class="fl"action="{:url('goods/sechan')}">
+								<input name="goodsName" id="keyword" type="text" {notempty name="$conds.goodsName" placeholder=""}value="{$conds.goodsName}" {/notempty}/>
+							<input type="submit" value="">
+						
+						</form>
+						
+						<div class="btn fl clearfix">
+							<a href="mygxin.html"><img src="__STATIC__/index2.1.0/img/grzx.png"/></a>
+							<a href="#" class="er1"><img src="__STATIC__/index2.1.0/img/ewm.png"/></a>
+							<a href="cart.html"><img src="__STATIC__/index2.1.0/img/gwc.png"/></a>
+							<p><a href="#"><img src="__STATIC__/index2.1.0/img/smewm.png"/></a></p>
+						</div>
+					</div>
+				</div>
+				<ul class="clearfix" id="bott">
+					<li><a href="{:url('index/index')}">首页</a></li>
+					<li>
+						<a href="#">所有商品</a>
+						<div class="sList">
+							<div class="wrapper  clearfix">
+								<a href="user.php?act=crowdfunding">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav1.jpg"/></dt>
+										<dd>浓情欧式</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav2.jpg"/></dt>
+										<dd>浪漫美式</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav3.jpg"/></dt>
+										<dd>雅致中式</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav6.jpg"/></dt>
+										<dd>简约现代</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav7.jpg"/></dt>
+										<dd>创意装饰</dd>
+									</dl>
+								</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="flowerDer.html">装饰摆件</a>
+						<div class="sList2">
+							<div class="clearfix">
+								<a href="proList.html">干花花艺</a>
+								<a href="vase_proList.html">花瓶花器</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="decoration.html">布艺软饰</a>
+						<div class="sList2">
+							<div class="clearfix">
+								<a href="zbproList.html">桌布罩件</a>
+								<a href="bzproList.html">抱枕靠垫</a>
+							</div>
+						</div>
+					</li>
+					<li><a href="paint.html">墙式壁挂</a></li>
+					<li><a href="perfume.html">蜡艺香薰</a></li>
+					<li><a href="idea.html">创意家居</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-----------------address------------------------------->
+		<div class="address">
+			<div class="wrapper clearfix">
+				<a href="index.html">首页</a>
+				<span>/</span>
+				<a href="flowerDer.html">装饰摆件</a>
+				<span>/</span>
+				<a href="proList.html">干花花艺</a>
+				<span>/</span>
+				<a href="#" class="on">【最家】非洲菊仿真花干花</a>
+			</div>
+		</div>
+		<!-----------------------Detail------------------------------>
+		<div class="detCon">
+			<div class="proDet wrapper">
+				<div class="proCon clearfix">
+					<div class="proImg fl">
+						<img class="det" src="/{$proDer.mainPic}" />
+						<div class="smallImg clearfix">
+							<img src="/{$proDer.mainPic}" data-src="/{$proDer.mainPic}">
+					
+						</div>
+					</div>
+				
+					<div class="fr intro">
+						<div class="title">
+							<h4> {$proDer.goodsName}</h4>
+							<p>{$proDer.details}</p>
+							<p>市场价格：<span>{$proDer.marketPrice}</span>&ensp;<span>紧急通知降价!!!</span></p>
+							<span>￥{$proDer.salePrice}</span>
+						</div>
+						<div class="proIntro">
+							<p>颜色分类</p>
+							<div class="smallImg clearfix categ">
+								<p class="fl"><img src="/{$proDer.mainPic}" alt="白瓷花瓶+20支快乐花" data-src="/{$proDer.mainPic}"></p>
+								
+							</div>
+							<p>数量&nbsp;&nbsp;库存<span>{$proDer.count}</span>件</p>
+							<div class="num clearfix">
+								<a href="javascript:addCount(-1);" class="btn-reduce" ectype="btnReduce"><img class="fl sub" src="__STATIC__/index2.1.0/img/temp/sub.jpg"></a>
+								<input class="fl buy-num" ectype="quantity" value="1"
+								   onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')"
+								   name="number" defaultnumber="1"style="width: 20px; text-align: center;">
+								   <a href="javascript:addCount(1);" class="btn-add" ectype="btnAdd"><img class="fl add" src="__STATIC__/index2.1.0/img/temp/add.jpg"></a>
+								
+							</div>
+						</div>
+						
+					
+
+						<div class="btns clearfix">
+							<a href="javascript:addTo({$proDer.id})"><p class="buy fl">立即购买</p></a>
+							<a href="javascript:addToCart({$proDer.id})"><p class="cart fr">加入购物车</p></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="introMsg wrapper clearfix">
+			<div class="msgL fl">
+				<div class="msgTit clearfix">
+					<a class="on">商品详情</a>
+					<a>所有评价</a>
+				</div>
+				<div class="msgAll">
+					<div class="msgImgs">
+						<img src="__STATIC__/index2.1.0/img/temp/det01.jpg">
+						<img src="__STATIC__/index2.1.0/img/temp/det02.jpg">
+						<img src="__STATIC__/index2.1.0/img/temp/det03.jpg">
+						<img src="__STATIC__/index2.1.0/img/temp/det04.jpg">
+						<img src="__STATIC__/index2.1.0/img/temp/det05.jpg">
+						<img src="__STATIC__/index2.1.0/img/temp/det06.jpg">
+						<img src="__STATIC__/index2.1.0/img/temp/det07.jpg">
+					</div>
+					<div class="eva">
+						<div class="per clearfix">
+							<img class="fl" src="__STATIC__/index2.1.0/img/temp/per01.jpg">
+							<div class="perR fl">
+								<p>馨***呀</p>
+								<p>不好意思评价晚了，产品很好，价格比玻璃品便宜，没有我担心的杂色，发货快，包装好，全5分</p>
+								<div class="clearfix">
+									<p><img src="__STATIC__/index2.1.0/img/temp/eva01.jpg"></p>
+									<p><img src="__STATIC__/index2.1.0/img/temp/eva02.jpg"></p>
+									<p><img src="__STATIC__/index2.1.0/img/temp/eva03.jpg"></p>
+									<p><img src="__STATIC__/index2.1.0/img/temp/eva04.jpg"></p>
+									<p><img src="__STATIC__/index2.1.0/img/temp/eva05.jpg"></p>
+								</div>
+								<p><span>2016年12月27日08:31</span><span>颜色分类：大中小三件套（不含花）</span></p>
+							</div>
+						</div>
+						
+			
+					</div>
+				</div>
+			</div>
+			<div class="msgR fr">
+				<h4>为你推荐</h4>
+				<div class="seeList">
+					{volist name="slide_to" id="tu" offset=0 length=3}
+					<a href="{:url('index/proDer')}?id={$tu.id}">
+					
+						<dl>
+							<dt><img src="/{$tu.mainPic}"></dt>
+							<dd>{$tu.goodsName}</dd>
+							<dd>{$tu.salePrice}</dd>
+						</dl>
+					</a>
+					{/volist}
+				</div>
+				
+			</div>
+		</div>
+		<div class="like">
+			<h4>猜你喜欢</h4>
+			<div class="bottom">
+				<div class="hd">
+					<span class="prev"><img src="__STATIC__/index2.1.0/img/temp/prev.png"></span>
+					<span class="next"><img src="__STATIC__/index2.1.0/img/temp/next.png"></span>
+				</div>
+				<div class="imgCon bd">
+					<div class="likeList clearfix">
+						<div>
+							{volist name="slide_to" id="ivo"}
+							<a href="proDetail.html">
+								<dl>
+									<dt><img src="__STATIC__/index2.1.0/img/temp/like01.jpg"></dt>
+									<dd>【最家】复古文艺风玻璃花瓶</dd>
+									<dd>￥193.20</dd>
+								</dl>
+							</a>
+							{/volist}
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="hond/foot"}
+		
+		<script src="__STATIC__/index2.1.0/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/pro.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/lib/bootstrap4/js/bootstrap.js"></script>
+		<script src="__STATIC__/layui/layui.js"></script>
+		
+		<script type="text/javascript">
+			jQuery(".bottom").slide({titCell:".hd ul",mainCell:".bd .likeList",autoPage:true,autoPlay:false,effect:"leftLoop",autoPlay:true,vis:1});
+		</script>
+		<script type="text/javascript">
+			function showLayer(u, width, height) {
+				$.ajax({
+					url: u,
+					type: "get",
+					success: function (data) {
+						layer.open({
+							type: 1,
+							skin: 'layui-layer-rim', //加上边框
+							area: [width, height], //宽高
+							content: data
+						});
+					}
+				});
+			}
+		</script>
+<script type="text/javascript">
+   layui.use(['layer'],function(){
+				$ = layui.jquery;
+				layer = layui.layer;
+
+			});
+    function addToCart(goodsId) {
+        // 将商品添加到购物车
+        //console.log("debug");
+        // 做一个判断
+        var count = $(".buy-num").val()
+        var max = {$proDer.count};
+
+        console.log(count);
+        if (parseInt(count) > max) {
+            $(".buy-num").val(max)
+            //console.log(1);
+        } else if (count == 0) {
+            $(".buy-num").val(1);
+            //console.log(2);
+        } else {
+            //console.log(3);
+            $.ajax({
+                type: "post",
+                url: "{:url('cart/add')}",
+                data: {
+                    goodsId: goodsId,
+                    count : count
+                },
+                success: function(res) {
+                    console.log(res);
+                    if (res.status) {
+						layer.alert('加入购物车成功', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						time: 3000 //5秒关闭（如果不配置，默认是3秒）
+						});
+                       
+						setTimeout('window.location.reload()',3000);
+                       
+                    } else {
+                        //alert('加入购物车失败：' + res.msg);
+						layer.alert('加入购物车失败：' + res.msg, {
+					    title: '提示',
+						icon: 5,
+						closeBtn: 1,
+						time: 5000 //5秒关闭（如果不配置，默认是3秒）
+						});
+                    	
+                    }
+
+                }
+            });
+        }
+    }
+	function addTo(goodsId) {
+        // 将商品添加到购物车
+        //console.log("debug");
+        // 做一个判断
+        var count = $(".buy-num").val()
+        var max = {$proDer.count};
+
+        console.log(count);
+        if (parseInt(count) > max) {
+            $(".buy-num").val(max)
+            //console.log(1);
+        } else if (count == 0) {
+            $(".buy-num").val(1);
+            //console.log(2);
+        } else {
+            //console.log(3);
+            $.ajax({
+                type: "post",
+                url: "{:url('cart/add')}",
+                data: {
+                    goodsId: goodsId,
+                    count : count
+                },
+                success: function(res) {
+                    console.log(res);
+                    if (res.status) {
+						layer.alert('购买成功请付款', {
+					    title: '提示',
+						icon: 1,
+						closeBtn: 1,
+						time: 3000 //5秒关闭（如果不配置，默认是3秒）
+						});
+                       
+						setTimeout("location.href='http://cai:83/index/cart/indexca';",3000);
+                       
+                    } else {
+                        //alert('加入购物车失败：' + res.msg);
+						layer.alert('购买失败' + res.msg, {
+					    title: '提示',
+						icon: 5,
+						closeBtn: 1,
+						time: 5000 //5秒关闭（如果不配置，默认是3秒）
+						});
+                    	
+                    }
+
+                }
+            });
+        }
+    }
+    function addCount(num) {
+        //console.log(num);
+        var max = {$proDer.count}; // 库存
+        var cur = parseInt($(".buy-num").val());
+        if (num > 0) {
+            $(".buy-num").val(cur+num > max ? max : (cur+num));
+        } else {
+            $(".buy-num").val(cur+num < 1 ? 1 : (cur+num));
+        }
+    }
+
+</script>
+
+
+
+
+	
+
+	</body>
+</html>

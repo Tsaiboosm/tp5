@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>最家</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="__STATIC__/index2.1.0/img/R-C.jfif" type="image/x-icon" />
+
+	<div class="head ding">
+    <div class="wrapper clearfix">
+        <div class="clearfix" id="top">
+            <h1 class="fl"><a href="index.html"><img src="__STATIC__/index2.1.0/img/logo.png"/></a></h1>
+            <div class="fr clearfix" id="top1">
+                {empty name="$Think.session.member"}
+                <p class="fl">
+                    <a href="{:url('member/login')}" id="login">登录</a>
+                    <a href="{:url('member/register')}" id="reg">注册</a>
+                </p>
+                {else/}
+                <p class="fl">
+                    <a href="{:url('member/login')}" id="login">{$Think.session.member.memberName}</a>
+                    <a href="{:url('member/logout')}" onClick="return confirm('是否确认退出当前账号？');" id="reg">退出</a>
+                </p>
+                {/empty}
+                <form id="searchForm"method="get" class="fl"action="{:url('goods/sechan')}">
+                    <input name="goodsName" id="keyword" type="text" {notempty name="$conds.goodsName" placeholder=""}value="{$conds.goodsName}" {/notempty}/>
+                <input type="submit" value="">
+                
+            </form>
+                <div class="btn fl clearfix">
+                    <a href="{:url('mygxin/index')}"><img src="__STATIC__/index2.1.0/img/grzx.png"/></a>
+                    <a href="#" class="er1"><img src="__STATIC__/index2.1.0/img/ewm.png"/></a>
+                    <a href="cart.html"><img src="__STATIC__/index2.1.0/img/gwc.png"/></a>
+                    <p><a href="#"><img src="__STATIC__/index2.1.0/img/smewm.png"/></a></p>
+                </div>
+            </div>
+        </div>
+        
+        <ul class="clearfix" id="bott">
+            <li><a href="{:url('index/index')}">首页</a></li>
+            <li>
+                <a href="#">所有商品</a>
+            </li>
+            <li>
+                <a href="flowerDer.html">装饰摆件</a>
+            </li>
+            <li>
+                <a href="decoration.html">布艺软饰</a>
+            </li>
+            <li><a href="paint.html">墙式壁挂</a></li>
+            <li><a href="perfume.html">蜡艺香薰</a></li>
+            <li><a href="idea.html">创意家居</a></li>
+        </ul>
+    </div>
+</div>

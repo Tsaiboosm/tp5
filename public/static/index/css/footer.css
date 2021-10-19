@@ -1,0 +1,81 @@
+/* footer部分 */
+.bg-grey {
+    background-color: #eee;
+    padding: 16px 0;
+}
+.service-item {
+    font-size: 18px;
+    color: #888;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    margin: 8px 0;
+}
+.f-icon {
+    background: url("../img/footer_new_icon.png") no-repeat;
+    display: block;
+    height: 32px;
+    width: 32px;
+    margin-right: 12px;
+}
+.f-icon-qi {
+    background-position: 0 0;
+}
+.f-icon-zheng {
+   background-position: -34px 0;
+}
+.f-icon-hao {
+    background-position: -68px 0;
+}
+.f-icon-shan {
+    background-position: -102px 0;
+}
+.f-icon-kefu {
+    background-position: -3px -136px;
+}
+.footer-body {
+    background-color: #262626 !important;
+    color: #fff;
+    padding: 32px 0;
+}
+
+.footer-body .vertical-list ul li {
+    width: 100%;
+    line-height: 32px;
+}
+.footer-body h5 {
+    margin-bottom: 16px;
+}
+.qrcode-box {
+    background-color: #fff;
+    max-width: 112px;
+    padding: 2px;
+    margin: 0 auto;
+}
+.qrcode-box img {
+    width: 100%;
+}
+.qrcode-title {
+    text-align: center;
+    padding: 4px 0;
+    background-color: #000;
+    opacity: 0.7;
+}
+.apart-line {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 12px 32px;
+}
+.footer-body .horizontal-list li {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+.footer-body .horizontal-list li:first-child {
+    border: none;
+}
+
+.copyright {
+    text-align: center;
+    margin: 16px 0;
+    color: #8c8c8c;
+}
+
+

@@ -1,0 +1,117 @@
+	<div class="head ding">
+			<div class="wrapper clearfix">
+				<div class="clearfix" id="top">
+					<h1 class="fl"><a href="index.html"><img src="__STATIC__/index2.1.0/img/logo.png"/></a></h1>
+					<div class="fr clearfix" id="top1">
+						
+				 <form id="searchForm"method="get"class="fl"action="{:url('goods/sechan')}">
+                    <input name="goodsName" id="keyword"  placeholder="搜索"  type="text" {notempty name="$conds.goodsName" placeholder=""}value="{$conds.goodsName}" {/notempty}/>
+					<input type="submit" value="">
+				</form>
+						<div class="btn fl clearfix">
+							<a href="mygxin.html"><img src="__STATIC__/index2.1.0/img/grzx.png"/></a>
+							<a href="#" class="er1"><img src="__STATIC__/index2.1.0/img/ewm.png"/></a>
+							<a href="cart.html"><img src="__STATIC__/index2.1.0/img/gwc.png"/></a>
+							<p><a href="#"><img src="__STATIC__/index2.1.0/img/smewm.png"/></a></p>
+						</div>
+					</div>
+				</div>
+				<ul class="clearfix" id="bott">
+					<li><a href="{:url('index/index')}">首页</a></li>
+					<li>
+						<a href="#">所有商品</a>
+						<div class="sList">
+							<div class="wrapper  clearfix">
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav1.jpg"/></dt>
+										<dd>浓情欧式</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav2.jpg"/></dt>
+										<dd>浪漫美式</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav3.jpg"/></dt>
+										<dd>雅致中式</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav6.jpg"/></dt>
+										<dd>简约现代</dd>
+									</dl>
+								</a>
+								<a href="paint.html">
+									<dl>
+										<dt><img src="__STATIC__/index2.1.0/img/nav7.jpg"/></dt>
+										<dd>创意装饰</dd>
+									</dl>
+								</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="flowerDer.html">装饰摆件</a>
+						<div class="sList2">
+							<div class="clearfix">
+								<a href="proList.html">干花花艺</a>
+								<a href="vase_proList.html">花瓶花器</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="decoration.html">布艺软饰</a>
+						<div class="sList2">
+							<div class="clearfix">
+								<a href="zbproList.html">桌布罩件</a>
+								<a href="bzproList.html">抱枕靠垫</a>
+							</div>
+						</div>
+					</li>
+					<li><a href="paint.html">墙式壁挂</a></li>
+					<li><a href="perfume.html">蜡艺香薰</a></li>
+					<li><a href="idea.html">创意家居</a></li>
+				</ul>
+			</div>
+		</div>
+		
+			<!------------------------------idea------------------------------>
+			<div class="address mt">
+				<div class="wrapper clearfix">
+					<a href="{:url('index/index')}" class="fl">首页</a>
+					<span>/</span>
+					<a href="{:url('index')}">个人中心</a>
+					
+				</div>
+			</div>
+			<div class="Bott">
+				<div class="wrapper clearfix">
+					<div class="zuo fl">
+						<h3>
+							<a href="#"><img src="{$Think.session.member.gender}"style="border-radius: 50%; width: 180px;"/></a>
+							<p class="clearfix"><span class="fl">{$Think.session.member.memberName}</span><span class="fr"href="{:url('member/logout')}" onClick="return confirm('是否确认退出当前账号？');">[退出登录]</span></p>
+						</h3>
+						<div>
+							<h4>我的交易</h4>
+							<ul>
+								<li><a href="{:url('cart/indexca')}">我的购物车</a></li>
+								<li><a href="{:url('order/myorderq')}">我的订单</a></li>
+								<li><a href="{:url('mygxin/mygqxx')}">用户反馈</a></li>
+							</ul>
+							<h4>个人中心</h4>
+							<ul>
+								<li  class="on"><a href="{:url('mygxin/index')}">我的中心</a></li>
+								<li><a href="{:url('mygxin/addzi')}">地址管理</a></li>
+							</ul>
+							<h4>账户管理</h4>
+							<ul>
+								<li><a href="{:url('mygxin/mygrxx')}">个人信息</a></li>
+								<li><a href="{:url('mygxin/remima')}">修改密码</a></li>
+							</ul>
+						</div>
+					</div>

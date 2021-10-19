@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="utf-8" />
+		<title>最家</title>
+		<link rel="stylesheet" type="text/css" href="__CAI__/public.css"/>
+		<link rel="stylesheet" type="text/css" href="__CAI__/myorder.css" />
+	</head>
+	<style>
+		.seach{
+				width: 260px;
+				height: 40px;
+				float: right;
+				border: 1px solid #e0e0e0;
+			}
+			.seach .text{
+				width: 200px;
+				height: 40px;
+				outline: none;
+				border: none;
+				padding-left: 15px;
+				
+			}
+			.seach .btn{
+				width: 17%;
+				height: 40px;
+				border-left: 1px solid #e0e0e0;
+				background: url(__STATIC__/index2.1.0/img/ds.png) no-repeat center center;
+				float: right;
+				cursor: pointer;
+			}
+	</style>
+	<body>
+		<!------------------------------head------------------------------>
+		{include file="hond/inmygxin"}
+	
+		<!------------------------------Bott------------------------------>
+		
+				<div class="you fl">
+					<div class="my clearfix">
+						<h2 class="fl">我的订单</h2>
+						<a href="#" class="fl">请谨防钓鱼链接或诈骗电话，了解更多&gt;</a>
+					</div>
+					 <form id="myOrderForm"  method="post" action="{:url('order/myorderq')}">
+					<div class="dlist clearfix">
+						<input name="status" type="hidden" value="{$cond['status']}" />
+                        <ul class="fl clearfix"  id="wa">
+                            <li {eq name="$cond['status']" value=""}{/eq} onclick="changeStatus('')">
+                                <a href="javascript:void(0);">全部</a>
+                            </li>
+                            <li {eq name="$cond['status']" value="0"}{/eq} class="user-count3" onclick="changeStatus('0')">
+                                <a href="javascript:void(0);">未付款</a>
+                            </li>
+                            <li {eq name="$cond['status']" value="1"}{/eq} class="user-count1" onclick="changeStatus('1')">
+                                <a href="javascript:void(0);">未发货</a>
+                            </li>
+                            <li {eq name="$cond['status']" value="2"}{/eq} class="user-count2" onclick="changeStatus('2')">
+                                <a href="javascript:void(0);">未收货</a>
+                            </li>
+                            <li {eq name="$cond['status']" value="3"}{/eq} class="user-count4" onclick="changeStatus('3')">
+                                <a href="javascript:void(0);">未评价</a>
+                            </li>
+                            <li {eq name="$cond['status']" value="4"}{/eq} class="user-count4" onclick="changeStatus('4')">
+                                <a href="javascript:void(0);">已完成</a>
+                            </li>
+                        </ul>
+						<div class="seach">
+							<input id="ip_keyword" name="orderId" class="text" type="text" value="{$cond['orderId']}" placeholder="订单号搜索" />
+							<input class="btn" type="button" onclick="$('#myOrderForm').submit();" />
+						</div>
+					
+					
+					
+					</div>
+				</form>
+
+                    {foreach $orderList as $order}
+					<div class="dkuang clearfix deng">
+						<p class="one fl">{switch name="$order[0]['status']"}
+                            {case value="0"}未付款{/case}
+                            {case value="1"}已付款，等待发货{/case}
+                            {case value="2"}已发货，等待确认收货{/case}
+                            {case value="3"}已确认收货，未评价{/case}
+                            {/switch}</p>
+						
+							<div  class="clearfix">
+								<div class="fl vewwl">
+									{switch name="$order[0]['status']"}
+									{case value="1"}
+									<a href="wuliu.html" class="ckwl">查看物流</a>
+									<div class="wuliu">
+										<h4>{switch name="$order[0]['delivery']"}
+											{case value="0"}顺丰快递{/case}
+											{case value="1"}百世快递{/case}
+											{case value="2"}圆通快递{/case}
+											{case value="3"}中通快递{/case}
+											{/switch}：{$order[0]['orderId']}</h4>
+										<ul>
+											<li>
+												<p>妥投投递并签收，已签收。签收人：本人签收</p>
+												<p></p>
+											</li>
+											<li>
+												<p>深圳市南油速递营销部安排投递（投递员姓名：{$order[0]['consigneeName']}。联系电话：{$order[0]['mobilePhone']};</p>
+												<p>{$order[0]['createTime']}</p>
+											</li>
+											<li>
+												<p>{$order[0]['province']}</p>
+												<p>2020-12-03 02:20:00</p>
+											</li>
+											<li>以上为最新跟踪信息<a href="">查看全部</a></li>
+										</ul>
+									</div>
+									{/case}
+									{/switch}
+								</div>
+							</div>
+							
+						<div class="word clearfix">
+							<ul class="fl clearfix">
+								<li>订单时间:{$order[0]['createTime']}</li>
+								<li>收货人:{$order[0]['consigneeName']}</li>
+								<li>订单号:{$order[0]['orderId']}</li>
+								<li>{switch name="$order[0]['payMethod']"}
+                                    {case value="0"}支付宝支付{/case}
+                                    {case value="1"}微信支付{/case}
+									{case value="2"}银行卡支付{/case}
+									{case value="3"}货到付款{/case}
+                                    {/switch}</li>
+							</ul>
+							<p class="fr">订单金额：<span>{$order[0]['totalPay']}</span>元</p>
+						</div>
+						{foreach $order[1] as $time}
+						<div class="shohou clearfix">
+							<a href="{:url('index/proDer')}?id={$time.goodsId}" class="fl"><img src="/{$time.mainPic}"/></a>
+							<p class="fl"><a href="#">{$time.goodsName}</a><a href="#">¥{$time.salePrice}</a></p>
+							<p class="fr">
+							{switch name="$order[0]['status']"}
+							{case value="0"}
+                            <a onClick="return confirm('是否确认全额支付该订单？');" href="{:url('order/pay')}?orderId={$order[0]['orderId']}" class="my-btn mr-2">支付订单</a>
+                            <a onClick="return confirm('是否删除该订单？');" href="{:url('order/delete')}?orderId={$order[0]['orderId']}" class="my-btn">删除订单</a>
+                            {/case}
+							{case value="1"}
+							<a href="#" class="my-btn">查看物流</a>
+							<a onClick="return confirm('是否收货？');" href="{:url('order/redaw')}?orderId={$order[0]['orderId']}" class="my-btn">测试完成订单</a>
+							<a href="{:url('order/orderssd')}?orderId={$order[0]['orderId']}">订单详情</a>
+							{/case}
+							{case value="2"}
+							<a onClick="return confirm('是否收货？');" href="{:url('order/receive')}?orderId={$order[0]['orderId']}" class="my-btn">确认收货</a>
+							<a href="{:url('order/orderssd')}?orderId={$order[0]['orderId']}">订单详情</a>
+							{/case}
+							{case value="3"}
+							<a href="#" class="my-btn">待评价</a>
+							<a href="{:url('order/orderssd')}?orderId={$order[0]['orderId']}">订单详情</a>
+							{/case}
+							{case value="4"}
+							<a href="{:url('order/orderssd')}?orderId={$order[0]['orderId']}">订单详情</a>
+							{/case}
+							{/switch}
+					
+							</p>
+						</div>
+						{/foreach}
+					</div>
+                    {/foreach}
+                    <!-- <div class="fenye clearfix">
+                       
+                        {$pageHtml}
+                    </div> -->
+				</div>
+			</div>
+		</div>
+		{include file="hond/foot"}
+		<script src="__STATIC__/index2.1.0/js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/index2.1.0/js/user.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	
+<script type="text/javascript">
+    $(document).ready(function(e) {
+        var counter = 0;
+        if (window.history && window.history.pushState) {
+            $(window).on('popstate', function () {
+                window.history.pushState('forward', null, '#');
+                window.history.forward(1);
+               
+            });
+        }
+        window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+        window.history.forward(1);
+    });
+</script>
+	<script type="text/javascript">
+	    function changeStatus(newStatus) {
+			$("input[name='status']").val(newStatus);
+			$("#myOrderForm").submit();
+		}
+		
+		function changePeriod(newPeriod) {
+			$("input[name='period']").val(newPeriod);
+			$("#myOrderForm").submit();
+		}
+		
+		$("#dateTime li").each(function() {
+			//console.log($(this).attr('data-period'));
+			if ($(this).attr('data-period') == '{$cond['period']}') {
+				$("#dateTime>div").html($(this).text());
+			}
+        });
+	
+    </script>
+</html>
